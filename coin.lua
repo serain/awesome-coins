@@ -28,6 +28,7 @@ local function factory(args)
     local crypto                = args.crypto or 'bitcoin'
     local timeout               = args.timeout or 60
     local na_markup             = args.na_markup or " N/A "
+    local settings              = args.settings or function() end
     local api_call              = "curl -s https://api.coinmarketcap.com/v1/ticker/%s/"
 
     coin.widget:set_markup(na_markup)
@@ -44,7 +45,8 @@ local function factory(args)
                     value = string.format("%.2f", data)
                 end
 
-                coin.widget:set_markup(prefix .. value .. suffix)
+                widget = coin.widget
+                settings()
             else
                 coin.widget:set_markup(na_markup)
             end
