@@ -2,40 +2,56 @@
 
 ## Overview
 
-`awesome-coins` provides a widget for displaying cryptocurrency values in with
-`awesome-wm`. It's powered by
+`awesome-coins` provides a widget for displaying cryptocurrency values in 
+awesomeWM. It's powered by
 [coinmarketcap's API](https://coinmarketcap.com/api/).
 
 You could make it look like this:
 
 ![awesome-coins sample](./screenshots/sample.png "awesome-coins sample")
 
+## Acknowledgements
+
+This plugin is mostly an adaptation Luca CPZ's
+[`lain`](https://github.com/lcpz/lain) widgets, modified to display
+cryptocurrency values.
+
 ## Installation & Usage
 
-Clone this into your `awesome` root directory, most likely like this:
+Clone this into your `awesome` configuration directory, probably like this:
 
 `git clone git@github.com:whatever ~/.config/awesome`
 
-Edit your `rc.lua` or `theme.lua` to look something like this:
+Setup is similar to `lain`, so edit your `rc.lua` or `theme.lua` to look
+something like this:
 
 ```lua
 local coins = require("awesome-coins")
 
 -- {{ Coin widgets
 -- Ripple
-local rippleicon = wibox.widget.imagebox('/path/to/icon.png')
-local ripple = coins.coin({
-    crypto = "ripple"
+local rippleicon = wibox.widget.imagebox(theme.widget_ripple)
+theme.ripple = coins.coin({
+    crypto = "ripple",
+    settings = function()
+        widget:set_markup(markup.fontfg(theme.font, theme.fg_normal, value))
+    end
 })
 -- Bitcoin
-local bitcoinicon = wibox.widget.imagebox('/path/to/icon.png')
-local bitcoin = coins.coin({
-    crypto = "bitcoin"
+local bitcoinicon = wibox.widget.imagebox(theme.widget_bitcoin)
+theme.bitcoin = coins.coin({
+    crypto = "bitcoin",
+    settings = function()
+        widget:set_markup(markup.fontfg(theme.font, theme.fg_normal, value))
+    end
 })
 -- Cardano
-local cardanoicon = wibox.widget.imagebox('/path/to/icon.png')
-local cardano = coins.coin({
-    crypto = "cardano"
+local cardanoicon = wibox.widget.imagebox(theme.widget_cardano)
+theme.cardano = coins.coin({
+    crypto = "cardano",
+    settings = function()
+        widget:set_markup(markup.fontfg(theme.font, theme.fg_normal, value))
+    end
 })
 -- }}
 
