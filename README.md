@@ -2,8 +2,9 @@
 
 ## Overview
 
-`awesome-coins` allows you to display the value of any cryptocurrency in a
-wibar. It's powered by [coinmarketcap's API](https://coinmarketcap.com/api/).
+`awesome-coins` provides a widget for displaying cryptocurrency values in with
+`awesome-wm`. It's powered by
+[coinmarketcap's API](https://coinmarketcap.com/api/).
 
 You could make it look like this:
 
