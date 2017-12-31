@@ -9,8 +9,8 @@
 
 --]]
 
-local helpers  = require("awesome-coins.helpers")
-local json     = require("awesome-coins.json")
+local helpers  = require("lain.helpers")
+local json     = require("lain.util.dkjson")
 local wibox    = require("wibox")
 local tonumber = tonumber
 
@@ -19,7 +19,7 @@ local tonumber = tonumber
 local function factory(args)
     local coin                  = { widget = wibox.widget.textbox() }
     local args                  = args or {}
-    -- target digital currency, refere to https://coinmarketcap.com/api/
+    -- target digital currency, refer to https://coinmarketcap.com/api/
     local crypto                = args.crypto or 'bitcoin'
     -- refresh timeout
     local timeout               = args.timeout or 60
@@ -35,9 +35,10 @@ local function factory(args)
 
     function coin.update()
         local cmd = string.format(api_call, crypto)
-        helpers.async(cmd, function(f)
-            value = tonumber(json.decode(f)[1]["price_usd"])
-            change = json.decode(f)[1][string.format("percent_change_%s", percentage_delta)]
+        helpers.async(cmd, function(response)
+            data, pos, err = json.decode(response, 1, nil)
+            value = tonumber(data[1]["price_usd"])
+            change = data[1][string.format("percent_change_%s", percentage_delta)]
 
             if tonumber(value) ~= nil and tonumber(change) ~= nil then
                 if value > 1000 then

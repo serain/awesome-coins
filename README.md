@@ -16,16 +16,24 @@ This plugin is mostly an adaptation Luca CPZ's
 [`lain`](https://github.com/lcpz/lain) widgets, modified to display
 cryptocurrency values.
 
+## Prerequisites
+
+You'll need [`lain`](https://github.com/lcpz/lain) in your `awesome`
+configuration directory if you don't have it already:
+
+`git clone https://github.com/lcpz/lain.git ~/.config/awesome`
+
 ## Installation & Usage
 
-Clone this into your `awesome` configuration directory:
+Clone `awesome-coins` into your `awesome` configuration directory:
 
-`git clone git@github.com:whatever ~/.config/awesome`
+`git clone https://github.com/sheeplepie/awesome-coins.git ~/.config/awesome`
 
-Setup is similar to `lain`, so edit your `rc.lua` or `theme.lua` to look 
+Setup is similar to `lain` widgets, so edit your `rc.lua` or `theme.lua` to look 
 something like this:
 
 ```lua
+local markup = lain.util.markup
 local coins = require("awesome-coins")
 
 -- {{ Coins
@@ -51,12 +59,6 @@ theme.bitcoin = coins.coin({
     crypto = "bitcoin",
     settings = coin_settings
 })
--- Cardano
-local cardanoicon = wibox.widget.imagebox(theme.widget_cardano)
-theme.cardano = coins.coin({
-    crypto = "cardano",
-    settings = coin_settings
-})
 -- }}
 
 -- {{ Wibar
@@ -72,9 +74,7 @@ function theme.at_screen_connect(s)
             rippleicon,
             ripple,
             bitcoinicon,
-            bitcoin,
-            cardanoicon,
-            cardano
+            bitcoin
         },
         ...
     }
@@ -88,7 +88,7 @@ Check `coin.lua` for details. The following `args` can be passed to
 `coins.coin()`, as a single table parameter:
 
 ```lua
--- target digital currency, refere to https://coinmarketcap.com/api/
+-- target digital currency, refer to https://coinmarketcap.com/api/
 local crypto                = args.crypto or 'bitcoin'
 -- refresh timeout
 local timeout               = args.timeout or 60
