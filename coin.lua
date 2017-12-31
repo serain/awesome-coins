@@ -37,10 +37,11 @@ local function factory(args)
         local cmd = string.format(api_call, crypto)
         helpers.async(cmd, function(response)
             data, pos, err = json.decode(response, 1, nil)
-            value = tonumber(data[1]["price_usd"])
-            change = data[1][string.format("percent_change_%s", percentage_delta)]
 
-            if tonumber(value) ~= nil and tonumber(change) ~= nil then
+            if data ~= nil then
+                value = tonumber(data[1]["price_usd"])
+                change = data[1][string.format("percent_change_%s", percentage_delta)]
+
                 if value > 1000 then
                     value = string.format("%.2fK", value/1000)
                 else
